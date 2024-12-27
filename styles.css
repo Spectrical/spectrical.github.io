@@ -16,7 +16,7 @@ body {
     align-items: center;
     padding: 0 20px;
     z-index: 2;
-    box-shadow: -10px 5px 20px 3px rgba(0,0,0,0.5);
+    box-shadow: -10px 5px 20px 3px rgba(0, 0, 0, 0.5);
 }
 
 .hamburger-menu {
@@ -34,37 +34,34 @@ body {
 
 .ootake {
     position: fixed;
-    bottom: -10px;
-    left: 0px;
+    bottom: 0; /* Ensure it's fully visible */
+    left: 0;
+    width: 100%;
 }
 
 .ootake img {
     width: 45%;
-    min-width: 45%;
-    max-width: 1100px;
-    min-height: 100%;
-    max-height: 100%;
+    max-width: 1100px; /* Prevent oversized scaling */
+    height: auto; /* Maintain aspect ratio */
 }
 
 .spectrical {
     position: absolute;
-    top: 35%;
-    right: 20%;
+    top: 20%; /* Adjust for better visibility */
+    right: 10%; /* Center it slightly better */
 }
 
 .spectrical img {
-    position: fixed;
-    top: 23%;
-    right: 4%;
-    min-width: 49%;
+    width: 350px; /* Fix to avoid resizing issues */
     max-width: 480px;
-    max-height: fit-content;
+    height: auto;
 }
 
 .login-menu {
     position: absolute;
-    top: 300px;
-    right: 125px;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%);
     background-color: #1f1f1f;
     padding: 20px;
     border-radius: 8px;
@@ -73,26 +70,23 @@ body {
 }
 
 .login-menu input {
-    position: fixed;
-    top: 50%;
-    right: 3.5%;
+    width: 90%; /* Flexible sizing */
+    padding: 10px;
+    margin: 10px 0;
     background-color: #1f1f1f;
+    border: 1px solid white;
     border-radius: 5px;
-    width: fit-content;
-    min-width: 48%;
-    max-width: fit-content;
-    max-height: fit-content;
-    min-height: auto;
+    color: white;
     text-align: center;
 }
 
 .login-menu button {
     width: 100%;
+    height: 35px;
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #1f1f1f;
+    background-color: #ff5722;
     color: white;
     cursor: pointer;
 }
-
