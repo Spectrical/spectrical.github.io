@@ -5,6 +5,11 @@ body {
     background-color: #f4f4f4;
     text-align: center;
 }
+.spectrical {
+    position: fixed;
+    top: 35%;
+    right: 20%
+}
 
 header {
     background-color: #333;
