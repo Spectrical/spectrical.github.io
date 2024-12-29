@@ -1,66 +1,86 @@
-body {
-    font-family: Arial, sans-serif;
+body.about-page {
+    background-color: #151515;
+    color: white;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    text-align: center;
+    font-family: Arial, sans-serif;
 }
 
-.spectrical {
+/* Spectrical SVG at the top, sticks to the screen */
+.spectrical-header {
     position: fixed;
-    top: 35%;
-    right: 20%;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
-}
-
-main {
-    padding: 2rem;
-}
-
-.content-box {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    margin: 0 auto;
-    width: 80%;
-    height: 200px; /* Adjust the height as needed */
-    overflow-y: scroll; /* Make the content scrollable */
-}
-
-.home-button {
-    position: absolute;
-    background: none;
-    border: 2px solid transparent; /* Default transparent border */
-    color: inherit; /* Match surrounding text color */
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    outline: none; /* Removes blue outline on focus */
-    transition: border 0.2s ease;
-}
-
-.home-button:hover {
-    border-color: white; /* White border on hover */
-}
-
-.home-button:active {
-    border-color: white; /* White border remains */
-    border-width: 3px; /* Thicker border when clicked */
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    bottom: 0;
+    background-color: #151515; /* Same background as page */
+    z-index: 1000;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.spectrical-header img {
+    max-height: 60px; /* Adjust size as needed */
+}
+
+/* Main content container */
+.about-container {
+    margin-top: 80px; /* Push below Spectrical SVG */
+    padding: 20px;
+}
+
+/* Scrollable Box */
+.scroll-box {
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+/* Top Bar */
+.scroll-box .top-bar {
+    background-color: #1f1f1f;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Scrollable content inside the box */
+.scroll-box-content {
+    max-height: 400px; /* Fixed height for scrollable area */
+    overflow-y: scroll;
+    background-color: #292929;
+    padding: 20px;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: grey #292929; /* For Firefox */
+}
+
+/* Scrollbar styling for Webkit (Chrome, Edge, Safari) */
+.scroll-box-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scroll-box-content::-webkit-scrollbar-track {
+    background: #292929;
+}
+
+.scroll-box-content::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 10px;
+}
+
+/* Inside scroll-box content styles */
+.scroll-box-content img {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 50%;
+}
+
+.scroll-box-content p {
+    margin: 10px 0;
+    line-height: 1.5;
+    text-align: justify;
+    font-size: 14px;
 }
