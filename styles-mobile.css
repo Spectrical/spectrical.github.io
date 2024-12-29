@@ -1,0 +1,85 @@
+/* sytles-mobile css*/
+body {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+body.login-page .hamburger-menu {
+  display: none;
+}
+.foreground .about-button {
+  position: absolute;
+  background: none;
+  border: 2px solid transparent; /* Default transparent border */
+  color: inherit; /* Match surrounding text color */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none; /* Removes blue outline on focus */
+  transition: border 0.2s ease;
+}
+
+.foreground .about-button:hover {
+  border-color: white; /* White border on hover */
+}
+
+.foreground .about-button:active {
+  border-color: white; /* White border remains */
+  border-width: 3px; /* Thicker border when clicked */
+}
+/* Alpha Banner for Mobile */
+.alpha-banner {
+    position: absolute;
+    top: 2px;
+    right: 7px;
+    font-size: 3px;
+    font-weight: bold;
+    color: #151515;;
+    z-index: 1000; /* Ensures it appears above other elements */
+}
+.ootake img,
+.spectrical img {
+  user-select: none; /* Prevent selection */
+  pointer-events: none; /* Optional: Prevent interaction */
+}
+/* Adjustments for smaller screen sizes */
+.hamburger-menu {
+    width: 25px;
+    height: 20px;
+}
+
+.hamburger-menu div {
+    height: 3px;
+    margin: 3px 0;
+}
+
+.login-menu {
+    top: 50%;
+    left: 180px;
+    height: 230px;
+    width: 280px;
+    padding: 3px;
+}
+
+.login-menu input {
+    width: 85%;
+    padding: 8px;
+}
+
+.login-menu button {
+    height: 30px;
+    padding: 8px;
+    width: 95%;
+}
+
+.ootake img {
+    width: 50%; /* Adjust size for better fit */
+    min-width: 160px;
+}
+
+.spectrical img {
+    top: 15%;
+    right: 5%;
+    width: 90%; /* Adjust size for mobile screens */
+}
