@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About</title>
-  <link rel="stylesheet" href="../about/styles.css"> <!-- Adjust path if styles.css is in a higher directory -->
+  <meta charset="UTF-8">
+  <title>About Us</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="about/styles.css">
 </head>
-<body>
-  <div class="spectrical">
+<body class="about-page">
+  <!-- Spectrical SVG (Sticks to the screen) -->
+  <div class="spectrical-header">
     <img src="../spectrical.svg" alt="Spectrical Logo">
   </div>
-  <header>
-    <h1>About Us</h1>
-  </header>
-  <main>
-    <div class="content-box">
-      <p>Welcome to the about page! Here you can learn more about our mission and team.</p>
-      <button class="home-button" onclick="window.location.href='../index.html'">Back to Home</button>
+
+  <!-- About Content Section -->
+  <div class="about-container">
+    <!-- Scrollable Box -->
+    <div class="scroll-box">
+      <div class="top-bar">About Our Website</div>
+      <div class="scroll-box-content">
+        <img src="../ootake.svg" alt="Ootake Logo">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet sapien massa. Nulla facilisi. Cras feugiat, felis non consectetur interdum, nisl ligula consequat lectus, id efficitur sem elit a ligula. Aenean feugiat quam sit amet lectus viverra, et dictum elit luctus.</p>
+        <p>Phasellus nec tincidunt sapien, id ultrices orci. Sed a orci mollis, porttitor augue a, bibendum tortor. Vivamus elementum vitae purus et consequat. Fusce sollicitudin, mi ac convallis hendrerit, libero dolor tincidunt urna, nec tincidunt purus nunc ut justo.</p>
+        <p>Morbi ultricies sapien id quam tincidunt viverra. Integer laoreet pharetra ligula, quis viverra lectus viverra id. Suspendisse imperdiet nisl at neque placerat, id malesuada ex sagittis.</p>
+        <p>Sed posuere sodales augue, sit amet fermentum metus tincidunt ut. Nam pharetra risus eget enim faucibus feugiat. Nullam vel quam non orci ultrices sagittis in a sapien.</p>
+      </div>
     </div>
-  </main>
+  </div>
 </body>
 </html>
