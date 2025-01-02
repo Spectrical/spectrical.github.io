@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Empowering Creation!</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-mobile.css" media="screen and (max-width: 768px)">
+</head>
+<body class="login-page">
+  <div class="alpha-banner"></div>
+
+  <!-- Foreground Layer -->
+  <div class="foreground">
+    <button onclick="window.location.href='about/us.html'" class="about-button">About</button>
+    <div class="hamburger-menu">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- Ootake SVG -->
+  <div class="ootake">
+    <img src="ootake.svg" alt="Ootake Logo" />
+  </div>
+
+  <!-- Spectrical SVG -->
+  <div class="spectrical">
+    <img src="spectrical.svg" alt="Spectrical Logo" />
+  </div>
+  
+
+  <!-- Login Menu -->
+  <div class="login-menu">
+    <h5>Every creativity is unleashed from experiments!</h5>
+    <h3>Login</h3>
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <button>Login</button>
+  </div>
+
+  <script>
+    // "Alpha-V1.0" mobile
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.innerWidth <= 768) { // Mobile width
+        const alphaBanner = document.createElement('div');
+        alphaBanner.className = 'alpha-banner';
+        alphaBanner.textContent = 'Alpha-V1.0 Mobile View';
+        document.body.appendChild(alphaBanner);
+      }
+    });
+  </script>
+</body>
+</html>
