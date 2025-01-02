@@ -1,54 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="UTF-8">
-  <title>Empowering Creation!</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles-mobile.css" media="screen and (max-width: 768px)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen Image</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
-<body class="login-page">
-  <div class="alpha-banner"></div>
-
-  <!-- Foreground Layer -->
-  <div class="foreground">
-    <button onclick="window.location.href='about/us.html'" class="about-button">About</button>
-    <div class="hamburger-menu">
-      <div></div>
-      <div></div>
-      <div></div>
+<body>
+    <div class="background">
+        <img src="gardengrounds.svg" alt="Garden">
     </div>
-  </div>
+    <div class="foreground">
+        <img src="spectrical.svg" alt="Spectrical" class="spectrical-img">
+        <span id="quoteBox"></span>
+        <div class="copyright">© 2025</div>
+    </div>
 
-  <!-- Ootake SVG -->
-  <div class="ootake">
-    <img src="ootake.svg" alt="Ootake Logo" />
-  </div>
-
-  <!-- Spectrical SVG -->
-  <div class="spectrical">
-    <img src="spectrical.svg" alt="Spectrical Logo" />
-  </div>
-
-  <!-- Login Menu -->
-  <div class="login-menu">
-    <h5>Every creativity is unleashed from experiments!</h5>
-    <h3>Login</h3>
-    <input type="text" placeholder="Username">
-    <input type="password" placeholder="Password">
-    <button>Login</button>
-  </div>
-
-  <script>
-    // "Alpha-V1.0" mobile
-    window.addEventListener('DOMContentLoaded', () => {
-      if (window.innerWidth <= 768) { // Mobile width
-        const alphaBanner = document.createElement('div');
-        alphaBanner.className = 'alpha-banner';
-        alphaBanner.textContent = 'Alpha-V1.0 Mobile View';
-        document.body.appendChild(alphaBanner);
-      }
-    });
-  </script>
+    <script>
+        // Array of quotes
+        const quotes = [
+            "Creativity is born outside the box!",
+            "Innovation starts with a curious mind.",
+            "Dream big, act bold.",
+            "The future belongs to those who create it.",
+            "Every great idea starts as a dream.",
+            "Think differently, live boldly.",
+            "The impossible is just an opportunity.",
+            "Your imagination is your only limit.",
+            "Great minds think creatively, not alike.",
+            "Step out of the comfort zone to grow.",
+            "The best way to predict the future is to create it."
+        ];
+    
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('quoteBox').textContent = randomQuote;
+    
+        setTimeout(function() {
+            window.location.href = '../spectrical.github.io/pages/home.html';  // Replace with your folder path if needed
+        }, 2500);
+    </script>
 </body>
 </html>
