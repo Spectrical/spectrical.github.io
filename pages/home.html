@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Mobile</title>
+    <style>
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('../fonts/minecraft.ttf') format('truetype');
+        }
+        body {
+            background-color: #151515;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .top-bar {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #333;
+        }
+        .top-bar img {
+            height: 40px;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .menu-button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            margin: 0 5px;
+            position: relative;
+            font-family: 'Minecraft', Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        .menu-button:hover {
+            border: 2px solid white;
+            background: #555;
+        }
+        .menu-line {
+            position: absolute;
+            bottom: 0;
+            height: 3px;
+            background-color: white;
+            left: 0;
+            width: 50px;
+            transition: left 0.3s ease, width 0.3s ease;
+        }
+        .content {
+            background-color: #333;
+            padding: 20px;
+            margin-top: 10px;
+            width: 80%;
+            max-width: 600px;
+            margin: 10px auto;
+        }
+        .content-section {
+            background-color: #444;
+            padding: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <img src="../components/logo.svg" alt="Logo">
+    </div>
+    <div class="menu">
+        <button class="menu-button" onclick="showContent('games', this)">Games</button>
+        <button class="menu-button" onclick="showContent('store', this)">Store</button>
+        <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
+        <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
+        <div id="menu-line" class="menu-line"></div>
+    </div>
+    <div id="content" class="content">
+    </div>
+    <script>
+        function showContent(section, button) {
+            const content = document.getElementById('content');
+            content.innerHTML = `<div class="content-section">${section} content goes here</div>`;
+            const buttons = document.querySelectorAll('.menu-button');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+            const line = document.getElementById('menu-line');
+            const buttonRect = button.getBoundingClientRect();
+            const menuRect = button.parentElement.getBoundingClientRect();
+            line.style.left = `${buttonRect.left - menuRect.left + (buttonRect.width / 2 - 25)}px`;
+            line.style.width = `50px`;
+        }
+        window.onload = function () {
+            const firstButton = document.querySelector('.menu-button');
+            showContent('games', firstButton);
+        };
+    </script>
+</body>
+</html>
