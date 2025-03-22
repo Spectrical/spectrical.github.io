@@ -11,9 +11,12 @@
             src: url('../fonts/minecraft.ttf') format('truetype');
         }
         body {
-            background-color: #151515;
+            background-color: #E0E0E0; /* Light gray background */
+            backdrop-filter: blur(5px); /* Blur effect */
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Minecraft', Arial, sans-serif;
+            color: white;
+            user-select: none; /* Prevent text selection */
         }
         .top-bar {
             display: flex;
@@ -71,6 +74,25 @@
             height: 3px;
             background-color: white;
         }
+        .newsletter {
+            background-color: #333;
+            padding: 20px;
+            margin: 10px auto;
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            overflow-y: auto; /* Scrollable newsletter */
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .newsletter h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .newsletter p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
         .content {
             background-color: #333;
             padding: 20px;
@@ -111,6 +133,9 @@
             #main-menu {
                 display: flex;
             }
+            .hamburger {
+                display: none; /* Hide hamburger on PC */
+            }
             .about-button {
                 display: none;
             }
@@ -129,6 +154,12 @@
         <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
         <button class="menu-button" onclick="showContent('newsletter', this)">Newsletter</button>
         <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
+    </div>
+    <div class="newsletter">
+        <h2>Newsletter: The Mystery of Radal’s Speech</h2>
+        <p>
+            On September 1, 1999, Radal gives a speech on infinite dimensions at a research facility. In the middle of his presentation, a mysterious figure interrupts him, causing him to lose consciousness. When he wakes up, the facility is almost completely destroyed. Determined to find answers, he decided to find what happened and who was behind it believing he already knows the answer.
+        </p>
     </div>
     <div id="content" class="content"></div>
     <script>
@@ -149,14 +180,7 @@
                     html = `<div class="content-section"><h2>Servers</h2><p>Work in progress: Server status and management tools coming soon.</p></div>`;
                     break;
                 case 'newsletter':
-                    html = `<div class="content-section newsletter">
-                        <h2>Newsletter</h2>
-                        <div class="logs" style="height: 300px; overflow-y: auto; font-family: 'Minecraft', Arial, sans-serif;">
-                            <p>Log entry 1: Welcome to our newsletter!</p>
-                            <p>Log entry 2: Updates coming soon.</p>
-                            <p>Log entry 3: Stay tuned for more!</p>
-                        </div>
-                    </div>`;
+                    html = `<div class="content-section newsletter"><h2>Newsletter</h2><p>Check the top section for the latest newsletter!</p></div>`;
                     break;
             }
             content.innerHTML = html;
