@@ -79,32 +79,41 @@
             color: white;
             font-family: Arial, sans-serif;
         }
-        /* Horizontal list styling for all item containers */
         .item-list {
             display: flex;
             flex-direction: row;
             overflow-x: auto;
             gap: 20px;
-            padding-bottom: 10px; /* Space for scrollbar */
+            padding-bottom: 10px;
         }
-        /* Specific container classes */
+        .item-list::-webkit-scrollbar {
+            height: 8px;
+        }
+        .item-list::-webkit-scrollbar-track {
+            background: #333;
+        }
+        .item-list::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        .item-list::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
         .game-grid, .video-grid, .server-list, .store-items, .maps-list {
-            /* No additional styles needed; .item-list handles it */
         }
-        /* Item styling */
         .game-card, .video-item, .server-item, .store-item, .map-item {
             background-color: #444;
             padding: 10px;
             border-radius: 5px;
             width: 200px;
-            height: 180px; /* Reduced height */
+            height: 180px;
             box-sizing: border-box;
             text-align: center;
-            flex-shrink: 0; /* Prevents items from shrinking */
+            flex-shrink: 0;
         }
         .game-card img, .video-item img, .server-item img, .store-item img, .map-item img {
             width: 180px;
-            height: 100px; /* Reduced thumbnail height */
+            height: 100px;
             object-fit: cover;
             border-radius: 5px;
         }
@@ -130,8 +139,8 @@
             display: block;
         }
         .image-placeholder {
-            width: 180px; /* Same as thumbnail */
-            height: 100px; /* Same as thumbnail */
+            width: 180px;
+            height: 100px; 
             background-image: url('https://spectrical.github.io/gardengrounds.svg');
             background-size: cover;
             border-radius: 5px;
@@ -171,11 +180,10 @@
             line-height: 1.4;
         }
         .store-items {
-            /* No additional styles needed; .item-list handles it */
         }
         .thumbnail {
-            width: 180px; /* Same as image-placeholder */
-            height: 100px; /* Same as image-placeholder */
+            width: 180px; 
+            height: 100px; 
             object-fit: cover;
             border-radius: 5px;
         }
@@ -374,7 +382,6 @@
             if (window.innerWidth <= 600) {
                 document.getElementById('main-menu').classList.remove('show');
             }
-            // Load thumbnails after content is updated
             loadThumbnails();
         }
         function toggleMenu() {
