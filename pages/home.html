@@ -137,6 +137,9 @@
         .content a:hover {
             color: #ccc;
         }
+        .store {
+            font-family: "Arial", sans-serif;
+        }
         .store h2 {
             font-size: 28px;
             font-weight: bold;
@@ -145,6 +148,16 @@
         .store p {
             font-size: 16px;
             line-height: 1.4;
+        }
+        .store-item {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+        }
+        .thumbnail {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
         }
         @media (max-width: 600px) {
             .hamburger {
@@ -227,7 +240,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="game1.jpg" alt="Game 1" onerror="retryLoad(this, 'game1.jpg')">
+                                    <img src="https://spectrical.github.io/gardengrounds.svg" data-src="game1.jpg" alt="Game 1" class="thumbnail">
                                     <h3>Game 1</h3>
                                     <p>Description of Game 1</p>
                                 </div>
@@ -239,7 +252,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="game2.jpg" alt="Game 2" onerror="retryLoad(this, 'game2.jpg')">
+                                    <img src="https://spectrical.github.io/gardengrounds.svg" data-src="game2.jpg" alt="Game 2" class="thumbnail">
                                     <h3>Game 2</h3>
                                     <p>Description of Game 2</p>
                                 </div>
@@ -251,6 +264,10 @@
                     html = `<div class="content-section store">
                         <h2>Store</h2>
                         <p>Explore our catalog soon! Stay tuned for exclusive items and updates.</p>
+                        <div class="store-item">
+                            <img src="https://spectrical.github.io/gardengrounds.svg" data-src="item1.jpg" alt="Item Thumbnail" class="thumbnail">
+                            <p>Sample Item</p>
+                        </div>
                     </div>`;
                     break;
                 case 'watch':
@@ -264,7 +281,7 @@
                                         <div class="text-placeholder"></div>
                                     </div>
                                     <div class="actual-content">
-                                        <img src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 1" onerror="retryLoad(this, 'https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg')">
+                                        <img src="https://spectrical.github.io/gardengrounds.svg" data-src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 1" class="thumbnail">
                                         <h3>Video 1 Title</h3>
                                     </div>
                                 </a>
@@ -276,7 +293,7 @@
                                         <div class="text-placeholder"></div>
                                     </div>
                                     <div class="actual-content">
-                                        <img src="https://img.youtube.com/vi/gzNsqy-fYjM/0.jpg" alt="Video 2" onerror="retryLoad(this, 'https://img.youtube.com/vi/gzNsqy-fYjM/0.jpg')">
+                                        <img src="https://spectrical.github.io/gardengrounds.svg" data-src="https://img.youtube.com/vi/gzNsqy-fYjM/0.jpg" alt="Video 2" class="thumbnail">
                                         <h3>Video 2 Title</h3>
                                     </div>
                                 </a>
@@ -317,15 +334,25 @@
             if (window.innerWidth <= 600) {
                 document.getElementById('main-menu').classList.remove('show');
             }
+            // Load thumbnails after content is updated
+            loadThumbnails();
         }
         function toggleMenu() {
             const menu = document.getElementById('main-menu');
             menu.classList.toggle('show');
         }
-        function retryLoad(img, src) {
-            setTimeout(() => {
-                img.src = src;
-            }, 5000);
+        function loadThumbnails() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumbnail => {
+                const actualSrc = thumbnail.getAttribute('data-src');
+                if (actualSrc) {
+                    const img = new Image();
+                    img.src = actualSrc;
+                    img.onload = function() {
+                        thumbnail.src = actualSrc;
+                    };
+                }
+            });
         }
         window.onload = function () {
             const firstButton = document.querySelector('.menu-button');
