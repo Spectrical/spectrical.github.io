@@ -7,7 +7,7 @@
     <link rel="icon" href="../components/logo.svg" type="image/svg+xml">
     <style>
         body {
-            background-color: #333;
+            background-color: #222;
             margin: 0;
             font-family: Arial, sans-serif;
             color: white;
@@ -17,10 +17,11 @@
             display: flex;
             align-items: center;
             padding: 10px;
-            background-color: #222;
+            background-color: #333;
         }
         .top-bar img {
             height: 40px;
+            margin-right: 10px;
         }
         .hamburger {
             font-size: 30px;
@@ -30,6 +31,7 @@
             background-color: transparent;
             border: 2px solid transparent;
             box-sizing: border-box;
+            display: none;
         }
         .hamburger:hover {
             border: 2px solid white;
@@ -37,9 +39,8 @@
         }
         .menu {
             display: flex;
-            justify-content: space-around;
-            padding: 10px;
-            background-color: #222;
+            flex-grow: 1;
+            justify-content: flex-start;
         }
         .menu-button {
             background-color: transparent;
@@ -47,8 +48,6 @@
             border: 2px solid transparent;
             padding: 10px 20px;
             cursor: pointer;
-            flex: 1;
-            text-align: center;
             margin: 0 5px;
             position: relative;
             font-family: Arial, sans-serif;
@@ -68,7 +67,7 @@
             background-color: white;
         }
         .content {
-            background-color: #333;
+            background-color: #222;
             padding: 20px;
             min-height: calc(100vh - 60px);
         }
@@ -90,10 +89,12 @@
             background-color: #444;
             padding: 10px;
             border-radius: 5px;
+            min-height: 150px;
         }
         .game-card img, .store-item img, .video-item img {
             width: 100%;
-            height: auto;
+            height: 100px;
+            object-fit: cover;
         }
         .content-section.loading .placeholder {
             display: block;
@@ -109,10 +110,9 @@
         }
         .image-placeholder {
             width: 100%;
-            height: 150px;
+            height: 100px;
             background-image: url('https://spectrical.github.io/gardengrounds.svg');
             background-size: cover;
-            filter: blur(5px);
         }
         .text-placeholder {
             width: 80%;
@@ -127,13 +127,16 @@
             100% { background-position: 200px 0; }
         }
         @media (max-width: 600px) {
+            .hamburger {
+                display: block;
+            }
             .menu {
                 display: none;
                 position: absolute;
                 top: 60px;
                 left: 0;
                 width: 100%;
-                background-color: #222;
+                background-color: #333;
             }
             .menu.show {
                 display: block;
@@ -144,20 +147,14 @@
                 text-align: left;
                 padding: 15px;
             }
-            .hamburger {
-                display: block;
-            }
         }
         @media (min-width: 601px) {
-            .hamburger {
-                display: none;
-            }
             .menu {
                 display: flex;
             }
         }
         footer {
-            background-color: #222;
+            background-color: #333;
             color: white;
             padding: 20px;
             text-align: center;
@@ -168,18 +165,18 @@
     <div class="top-bar">
         <div class="hamburger" onclick="toggleMenu()">☰</div>
         <img src="../components/logo.svg" alt="Logo">
-    </div>
-    <div id="main-menu" class="menu">
-        <button class="menu-button" onclick="showContent('newsletter', this)">Newsletter</button>
-        <button class="menu-button" onclick="showContent('games', this)">Games</button>
-        <button class="menu-button" onclick="showContent('store', this)">Store</button>
-        <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
-        <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
-        <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
+        <div id="main-menu" class="menu">
+            <button class="menu-button" onclick="showContent('newsletter', this)">Newsletter</button>
+            <button class="menu-button" onclick="showContent('games', this)">Games</button>
+            <button class="menu-button" onclick="showContent('store', this)">Store</button>
+            <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
+            <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
+            <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
+        </div>
     </div>
     <div id="content" class="content"></div>
     <footer>
-        <p>© 2023 Your Company. All rights reserved.</p>
+        <p>© 2025 Spectrical.</p>
     </footer>
     <script>
         function showContent(section, button) {
@@ -190,10 +187,8 @@
                     html = `<div class="content-section newsletter">
                         <h2>Newsletter</h2>
                         <div class="logs" style="height: 300px; overflow-y: auto;">
-                            <p>Log entry 1: Welcome to our newsletter!</p>
-                            <p>Log entry 2: Updates coming soon.</p>
-                            <p>Log entry 3: Stay tuned for more!</p>
-                        </div>
+    <p>On September 1, 1999, Radal gives a speech on infinite dimensions at a research facility. In the middle of his presentation, a mysterious figure interrupts him, causing him to lose consciousness. When he wakes up, the facility is almost completely destroyed. Determined to find answers, he decided to find what happened and who was behind it, believing he already knows the answer.</p>
+                           </div>
                     </div>`;
                     break;
                 case 'games':
@@ -207,7 +202,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="game1.jpg" alt="Game 1">
+                                    <img src="game1.jpg" alt="Game 1" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
                                     <h3>Game 1</h3>
                                     <p>Description of Game 1</p>
                                 </div>
@@ -219,7 +214,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="game2.jpg" alt="Game 2">
+                                    <img src="game2.jpg" alt="Game 2" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
                                     <h3>Game 2</h3>
                                     <p>Description of Game 2</p>
                                 </div>
@@ -237,7 +232,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="product1.jpg" alt="Product 1">
+                                    <img src="product1.jpg" alt="Product 1" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
                                     <h3>Product 1</h3>
                                     <p>$10.00</p>
                                 </div>
@@ -248,7 +243,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="product2.jpg" alt="Product 2">
+                                    <img src="product2.jpg" alt="Product 2" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
                                     <h3>Product 2</h3>
                                     <p>$15.00</p>
                                 </div>
@@ -261,24 +256,28 @@
                         <h2>Watch</h2>
                         <div class="video-grid">
                             <div class="video-item">
-                                <div class="placeholder">
-                                    <div class="image-placeholder"></div>
-                                    <div class="text-placeholder"></div>
-                                </div>
-                                <div class="actual-content">
-                                    <img src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 1">
-                                    <h3>Video 1</h3>
-                                </div>
+                                <a href="https://youtu.be/nTF7ZIqu-Hw" target="_blank">
+                                    <div class="placeholder">
+                                        <div class="image-placeholder"></div>
+                                        <div class="text-placeholder"></div>
+                                    </div>
+                                    <div class="actual-content">
+                                        <img src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 1" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                                        <h3>Video 1 Title</h3>
+                                    </div>
+                                </a>
                             </div>
                             <div class="video-item">
-                                <div class="placeholder">
-                                    <div class="image-placeholder"></div>
-                                    <div class="text-placeholder"></div>
-                                </div>
-                                <div class="actual-content">
-                                    <img src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 2">
-                                    <h3>Video 2</h3>
-                                </div>
+                                <a href="https://youtu.be/gzNsqy-fYjM" target="_blank">
+                                    <div class="placeholder">
+                                        <div class="image-placeholder"></div>
+                                        <div class="text-placeholder"></div>
+                                    </div>
+                                    <div class="actual-content">
+                                        <img src="https://img.youtube.com/vi/gzNsqy-fYjM/0.jpg" alt="Video 2" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                                        <h3>Video 2 Title</h3>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>`;
@@ -288,12 +287,12 @@
                         <h2>Servers</h2>
                         <div class="server-list">
                             <div class="server-item">
-                                <h3>Server 1</h3>
+                                <h3>Randomserver</h3>
                                 <p>Status: Online</p>
                                 <p>Players: 10/20</p>
                             </div>
                             <div class="server-item">
-                                <h3>Server 2</h3>
+                                <h3>Project EiS</h3>
                                 <p>Status: Offline</p>
                             </div>
                         </div>
