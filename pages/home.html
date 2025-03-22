@@ -79,29 +79,43 @@
             color: white;
             font-family: Arial, sans-serif;
         }
-        .game-grid, .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .server-list {
+        /* Horizontal list styling for all item containers */
+        .item-list {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            overflow-x: auto;
             gap: 20px;
+            padding-bottom: 10px; /* Space for scrollbar */
         }
-        .game-card, .video-item, .server-item, .store-item {
+        /* Specific container classes */
+        .game-grid, .video-grid, .server-list, .store-items, .maps-list {
+            /* No additional styles needed; .item-list handles it */
+        }
+        /* Item styling */
+        .game-card, .video-item, .server-item, .store-item, .map-item {
             background-color: #444;
             padding: 10px;
             border-radius: 5px;
-            width: 200px; /* Fixed width for all items */
-            height: 250px; /* Fixed height for all items */
+            width: 200px;
+            height: 180px; /* Reduced height */
             box-sizing: border-box;
             text-align: center;
+            flex-shrink: 0; /* Prevents items from shrinking */
         }
-        .game-card img, .video-item img, .store-item img {
-            width: 180px; /* Fixed thumbnail width */
-            height: 120px; /* Fixed thumbnail height */
+        .game-card img, .video-item img, .server-item img, .store-item img, .map-item img {
+            width: 180px;
+            height: 100px; /* Reduced thumbnail height */
             object-fit: cover;
+            border-radius: 5px;
+        }
+        .game-card h3, .video-item h3, .server-item h3, .store-item h3, .map-item h3 {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .game-card p, .video-item p, .server-item p, .store-item p, .map-item p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #ccc;
         }
         .content-section.loading .placeholder {
             display: block;
@@ -117,17 +131,19 @@
         }
         .image-placeholder {
             width: 180px; /* Same as thumbnail */
-            height: 120px; /* Same as thumbnail */
+            height: 100px; /* Same as thumbnail */
             background-image: url('https://spectrical.github.io/gardengrounds.svg');
             background-size: cover;
+            border-radius: 5px;
         }
         .text-placeholder {
             width: 80%;
             height: 20px;
-            margin: 10px auto;
+            margin: 5px auto;
             background: linear-gradient(to right, #555 8%, #444 18%, #555 33%);
             background-size: 200px 100%;
             animation: shimmer 2s infinite linear;
+            border-radius: 3px;
         }
         @keyframes shimmer {
             0% { background-position: -200px 0; }
@@ -136,6 +152,8 @@
         .content a {
             color: white;
             text-decoration: none;
+            display: block;
+            height: 100%;
         }
         .content a:hover {
             color: #ccc;
@@ -152,14 +170,14 @@
             font-size: 16px;
             line-height: 1.4;
         }
-        .store-item {
-            display: inline-block;
-            margin: 10px;
+        .store-items {
+            /* No additional styles needed; .item-list handles it */
         }
         .thumbnail {
             width: 180px; /* Same as image-placeholder */
-            height: 120px; /* Same as image-placeholder */
+            height: 100px; /* Same as image-placeholder */
             object-fit: cover;
+            border-radius: 5px;
         }
         @media (max-width: 600px) {
             .hamburger {
@@ -234,31 +252,46 @@
                 case 'games':
                     html = `<div class="content-section games loading">
                         <h2>Games</h2>
-                        <div class="game-grid">
-                            <div class="game-card">
+                        <div class="game-grid item-list">
+                            ${Array.from({ length: 10 }, (_, i) => `
+                                <div class="game-card">
+                                    <div class="placeholder">
+                                        <div class="image-placeholder"></div>
+                                        <div class="text-placeholder"></div>
+                                        <div class="text-placeholder"></div>
+                                    </div>
+                                    <div class="actual-content">
+                                        <img src="https://spectrical.github.io/gardengrounds.svg" data-src="game${i+1}.jpg" alt="Game ${i+1}" class="thumbnail">
+                                        <h3>Game ${i+1}</h3>
+                                        <p>Description of Game ${i+1}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <h3>Maps</h3>
+                        <div class="maps-list item-list">
+                            <div class="map-item">
                                 <div class="placeholder">
                                     <div class="image-placeholder"></div>
                                     <div class="text-placeholder"></div>
-                                    <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="https://spectrical.github.io/gardengrounds.svg" data-src="game1.jpg" alt="Game 1" class="thumbnail">
-                                    <h3>Game 1</h3>
-                                    <p>Description of Game 1</p>
+                                    <img src="https://spectrical.github.io/gardengrounds.svg" data-src="map1.jpg" alt="NyctoFigures 19" class="thumbnail">
+                                    <h3>NyctoFigures 19</h3>
                                 </div>
                             </div>
-                            <div class="game-card">
-                                <div class="placeholder">
-                                    <div class="image-placeholder"></div>
-                                    <div class="text-placeholder"></div>
-                                    <div class="text-placeholder"></div>
+                            ${Array.from({ length: 9 }, (_, i) => `
+                                <div class="map-item">
+                                    <div class="placeholder">
+                                        <div class="image-placeholder"></div>
+                                        <div class="text-placeholder"></div>
+                                    </div>
+                                    <div class="actual-content">
+                                        <img src="https://spectrical.github.io/gardengrounds.svg" data-src="map${i+2}.jpg" alt="Map ${i+2}" class="thumbnail">
+                                        <h3>Map ${i+2}</h3>
+                                    </div>
                                 </div>
-                                <div class="actual-content">
-                                    <img src="https://spectrical.github.io/gardengrounds.svg" data-src="game2.jpg" alt="Game 2" class="thumbnail">
-                                    <h3>Game 2</h3>
-                                    <p>Description of Game 2</p>
-                                </div>
-                            </div>
+                            `).join('')}
                         </div>
                     </div>`;
                     break;
@@ -266,62 +299,67 @@
                     html = `<div class="content-section store">
                         <h2>Store</h2>
                         <p>Explore our catalog soon! Stay tuned for exclusive items and updates.</p>
-                        <div class="store-item">
-                            <img src="https://spectrical.github.io/gardengrounds.svg" data-src="item1.jpg" alt="Item Thumbnail" class="thumbnail">
-                            <p>Sample Item</p>
+                        <div class="store-items item-list">
+                            ${Array.from({ length: 10 }, (_, i) => `
+                                <div class="store-item">
+                                    <div class="placeholder">
+                                        <div class="image-placeholder"></div>
+                                        <div class="text-placeholder"></div>
+                                    </div>
+                                    <div class="actual-content">
+                                        <img src="https://spectrical.github.io/gardengrounds.svg" data-src="item${i+1}.jpg" alt="Item ${i+1}" class="thumbnail">
+                                        <h3>Item ${i+1}</h3>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>`;
                     break;
                 case 'watch':
                     html = `<div class="content-section watch loading">
                         <h2>Watch</h2>
-                        <div class="video-grid">
-                            <div class="video-item">
-                                <a href="https://youtu.be/nTF7ZIqu-Hw" target="_blank">
-                                    <div class="placeholder">
-                                        <div class="image-placeholder"></div>
-                                        <div class="text-placeholder"></div>
-                                    </div>
-                                    <div class="actual-content">
-                                        <img src="https://spectrical.github.io/gardengrounds.svg" data-src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 1" class="thumbnail">
-                                        <h3>Video 1 Title</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="video-item">
-                                <a href="https://youtu.be/gzNsqy-fYjM" target="_blank">
-                                    <div class="placeholder">
-                                        <div class="image-placeholder"></div>
-                                        <div class="text-placeholder"></div>
-                                    </div>
-                                    <div class="actual-content">
-                                        <img src="https://spectrical.github.io/gardengrounds.svg" data-src="https://img.youtube.com/vi/gzNsqy-fYjM/0.jpg" alt="Video 2" class="thumbnail">
-                                        <h3>Video 2 Title</h3>
-                                    </div>
-                                </a>
-                            </div>
+                        <div class="video-grid item-list">
+                            ${Array.from({ length: 10 }, (_, i) => `
+                                <div class="video-item">
+                                    <a href="https://youtu.be/nTF7ZIqu-Hw" target="_blank">
+                                        <div class="placeholder">
+                                            <div class="image-placeholder"></div>
+                                            <div class="text-placeholder"></div>
+                                        </div>
+                                        <div class="actual-content">
+                                            <img src="https://spectrical.github.io/gardengrounds.svg" data-src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video ${i+1}" class="thumbnail">
+                                            <h3>Video ${i+1} Title</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>`;
                     break;
                 case 'servers':
                     html = `<div class="content-section servers">
                         <h2>Servers</h2>
-                        <div class="server-list">
-                            <div class="server-item">
-                                <h3>Randomserver</h3>
-                                <p>Status: Online</p>
-                                <p>Players: 10/20</p>
-                            </div>
-                            <div class="server-item">
-                                <h3>Project EiS</h3>
-                                <p>Status: Offline</p>
-                            </div>
+                        <div class="server-list item-list">
+                            ${Array.from({ length: 10 }, (_, i) => `
+                                <div class="server-item">
+                                    <div class="placeholder">
+                                        <div class="image-placeholder"></div>
+                                        <div class="text-placeholder"></div>
+                                        <div class="text-placeholder"></div>
+                                    </div>
+                                    <div class="actual-content">
+                                        <img src="https://spectrical.github.io/gardengrounds.svg" data-src="server${i+1}.jpg" alt="Server ${i+1}" class="thumbnail">
+                                        <h3>Server ${i+1}</h3>
+                                        <p>Status: ${i % 2 === 0 ? 'Online' : 'Offline'}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>`;
                     break;
             }
             content.innerHTML = html;
-            if (['games', 'watch'].includes(section)) {
+            if (['games', 'watch', 'servers'].includes(section)) {
                 setTimeout(() => {
                     content.querySelector('.content-section').classList.remove('loading');
                 }, 2000);
