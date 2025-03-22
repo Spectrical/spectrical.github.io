@@ -6,17 +6,17 @@
     <title>Home - Mobile</title>
     <link rel="icon" href="../components/logo.svg" type="image/svg+xml">
     <style>
-        @font-face {
-            font-family: 'Minecraft';
-            src: url('../fonts/minecraft.ttf') format('truetype');
-        }
         body {
-            background-color: #E0E0E0; /* Light gray background */
-            backdrop-filter: blur(5px); /* Blur effect */
+            background-color: #E0E0E0;
             margin: 0;
-            font-family: 'Minecraft', Arial, sans-serif;
+            font-family: Arial, sans-serif;
             color: white;
-            user-select: none; /* Prevent text selection */
+            user-select: none;
+        }
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .top-bar {
             display: flex;
@@ -40,150 +40,307 @@
             border: 2px solid white;
             background: #555;
         }
-        .menu {
+        .main-container {
+            flex: 1;
             display: flex;
-            justify-content: space-around;
-            padding: 10px;
             position: relative;
-            max-width: 600px;
-            margin: 0 auto;
+        }
+        .menu {
+            background-color: #333;
         }
         .menu-button {
-            background-color: transparent;
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 15px;
+            border: none;
+            background: none;
             color: white;
-            border: 2px solid transparent;
-            padding: 10px 20px;
             cursor: pointer;
-            flex: 1;
-            text-align: center;
-            margin: 0 5px;
-            position: relative;
-            font-family: 'Minecraft', Arial, sans-serif;
-            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
         .menu-button:hover {
-            border: 2px solid white;
-            background: #555;
+            background-color: #444;
         }
-        .menu-button.selected::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: white;
-        }
-        .newsletter {
-            background-color: #333;
-            padding: 20px;
-            margin: 10px auto;
-            width: 80%;
-            max-width: 600px;
-            height: 400px;
-            overflow-y: auto; /* Scrollable newsletter */
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        .newsletter h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .newsletter p {
-            font-size: 16px;
-            line-height: 1.5;
+        .menu-button.selected {
+            background-color: #555;
         }
         .content {
             background-color: #333;
             padding: 20px;
-            margin-top: 10px;
-            width: 80%;
-            max-width: 600px;
-            margin: 10px auto;
-        }
-        .content-section {
-            background-color: #444;
-            padding: 20px;
-            color: white;
-            font-family: 'Minecraft', Arial, sans-serif;
-            border: 2px solid #666;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            border-radius: 5px;
-        }
-        @media (max-width: 600px) {
-            #main-menu {
-                display: none;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background-color: #333;
-            }
-            #main-menu.show {
-                display: block;
-            }
-            .menu-button {
-                display: block;
-                width: 100%;
-                text-align: left;
-                padding: 15px;
-            }
+            flex: 1; /* Ensures content takes full available width */
         }
         @media (min-width: 601px) {
-            #main-menu {
-                display: flex;
+            .menu {
+                width: 200px;
             }
-            .hamburger {
-                display: none; /* Hide hamburger on PC */
-            }
-            .about-button {
+        }
+        @media (max-width: 600px) {
+            .menu {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
                 display: none;
+                z-index: 10;
             }
+            .menu.show {
+                display: block;
+            }
+        }
+        .content-section {
+            color: white;
+            font-family: Arial, sans-serif;
+            width: 100%;
+        }
+        .game-grid, .store-grid, .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .server-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .game-card, .store-item, .video-item, .server-item {
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .game-card img, .store-item img, .video-item img {
+            width: 100%;
+            height: auto;
+        }
+        .logs {
+            padding: 10px;
+        }
+        .content-section.loading .placeholder {
+            display: block;
+        }
+        .content-section.loading .actual-content {
+            display: none;
+        }
+        .content-section .placeholder {
+            display: none;
+        }
+        .content-section .actual-content {
+            display: block;
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
+            background-size: 200px 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        .text-placeholder {
+            width: 80%;
+            height: 20px;
+            margin: 10px 0;
+            background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
+            background-size: 200px 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            margin: 0 10px;
         }
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-        <img src="../components/logo.svg" alt="Logo">
+    <div class="page-wrapper">
+        <div class="top-bar">
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <img src="../components/logo.svg" alt="Logo">
+        </div>
+        <div class="main-container">
+            <div id="main-menu" class="menu">
+                <button class="menu-button" onclick="showContent('newsletter', this)">Newsletter</button>
+                <button class="menu-button" onclick="showContent('games', this)">Games</button>
+                <button class="menu-button" onclick="showContent('store', this)">Store</button>
+                <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
+                <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
+                <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
+            </div>
+            <div id="content" class="content"></div>
+        </div>
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2023 Your Company. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="https://twitter.com/yourcompany"><img src="twitter-icon.png" alt="Twitter"></a>
+                    <a href="https://facebook.com/yourcompany"><img src="facebook-icon.png" alt="Facebook"></a>
+                    <!-- Add more social icons as needed -->
+                </div>
+            </div>
+        </footer>
     </div>
-    <div id="main-menu" class="menu">
-        <button class="menu-button" onclick="showContent('games', this)">Games</button>
-        <button class="menu-button" onclick="showContent('store', this)">Store</button>
-        <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
-        <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
-        <button class="menu-button" onclick="showContent('newsletter', this)">Newsletter</button>
-        <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
-    </div>
-    <div class="newsletter">
-        <h2>Newsletter: The Mystery of Radal’s Speech</h2>
-        <p>
-            On September 1, 1999, Radal gives a speech on infinite dimensions at a research facility. In the middle of his presentation, a mysterious figure interrupts him, causing him to lose consciousness. When he wakes up, the facility is almost completely destroyed. Determined to find answers, he decided to find what happened and who was behind it believing he already knows the answer.
-        </p>
-    </div>
-    <div id="content" class="content"></div>
     <script>
         function showContent(section, button) {
             const content = document.getElementById('content');
             let html = '';
             switch (section) {
+                case 'newsletter':
+                    html = `<div class="content-section newsletter loading">
+                        <h2>Newsletter</h2>
+                        <div class="logs" style="height: 300px; overflow-y: auto;">
+                            <div class="placeholder">
+                                <p class="text-placeholder"></p>
+                                <p class="text-placeholder"></p>
+                                <p class="text-placeholder"></p>
+                            </div>
+                            <div class="actual-content">
+                                <p>Log entry 1: Welcome to our newsletter!</p>
+                                <p>Log entry 2: Updates coming soon.</p>
+                                <p>Log entry 3: Stay tuned for more!</p>
+                            </div>
+                        </div>
+                    </div>`;
+                    break;
                 case 'games':
-                    html = `<div class="content-section"><h2>Games</h2><p>Work in progress: Interactive game listings coming soon!</p></div>`;
+                    html = `<div class="content-section games loading">
+                        <h2>Games</h2>
+                        <div class="game-grid">
+                            <div class="game-card">
+                                <div class="placeholder">
+                                    <div class="image-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                </div>
+                                <div class="actual-content">
+                                    <img src="game1.jpg" alt="Game 1">
+                                    <h3>Game 1</h3>
+                                    <p>Description of Game 1</p>
+                                </div>
+                            </div>
+                            <div class="game-card">
+                                <div class="placeholder">
+                                    <div class="image-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                </div>
+                                <div class="actual-content">
+                                    <img src="game2.jpg" alt="Game 2">
+                                    <h3>Game 2</h3>
+                                    <p>Description of Game 2</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
                     break;
                 case 'store':
-                    html = `<div class="content-section"><h2>Store</h2><p>Work in progress: Shop items and purchasing UI in development.</p></div>`;
+                    html = `<div class="content-section store loading">
+                        <h2>Store</h2>
+                        <div class="store-grid">
+                            <div class="store-item">
+                                <div class="placeholder">
+                                    <div class="image-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                </div>
+                                <div class="actual-content">
+                                    <img src="product1.jpg" alt="Product 1">
+                                    <h3>Product 1</h3>
+                                    <p>$10.00</p>
+                                </div>
+                            </div>
+                            <div class="store-item">
+                                <div class="placeholder">
+                                    <div class="image-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                </div>
+                                <div class="actual-content">
+                                    <img src="product2.jpg" alt="Product 2">
+                                    <h3>Product 2</h3>
+                                    <p>$15.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
                     break;
                 case 'watch':
-                    html = `<div class="content-section"><h2>Watch</h2><p>Work in progress: Video streaming interface under construction.</p></div>`;
+                    html = `<div class="content-section watch loading">
+                        <h2>Watch</h2>
+                        <div class="video-grid">
+                            <div class="video-item">
+                                <div class="placeholder">
+                                    <div class="image-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                </div>
+                                <div class="actual-content">
+                                    <img src="video1.jpg" alt="Video 1">
+                                    <h3>Video 1</h3>
+                                </div>
+                            </div>
+                            <div class="video-item">
+                                <div class="placeholder">
+                                    <div class="image-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                </div>
+                                <div class="actual-content">
+                                    <img src="video2.jpg" alt="Video 2">
+                                    <h3>Video 2</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
                     break;
                 case 'servers':
-                    html = `<div class="content-section"><h2>Servers</h2><p>Work in progress: Server status and management tools coming soon.</p></div>`;
-                    break;
-                case 'newsletter':
-                    html = `<div class="content-section newsletter"><h2>Newsletter</h2><p>Check the top section for the latest newsletter!</p></div>`;
+                    html = `<div class="content-section servers loading">
+                        <h2>Servers</h2>
+                        <div class="server-list">
+                            <div class="server-item">
+                                <div class="placeholder">
+                                    <div class="text-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                </div>
+                                <div class="actual-content">
+                                    <h3>Server 1</h3>
+                                    <p>Status: Online</p>
+                                    <p>Players: 10/20</p>
+                                </div>
+                            </div>
+                            <div class="server-item">
+                                <div class="placeholder">
+                                    <div class="text-placeholder"></div>
+                                    <div class="text-placeholder"></div>
+                                </div>
+                                <div class="actual-content">
+                                    <h3>Server 2</h3>
+                                    <p>Status: Offline</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
                     break;
             }
             content.innerHTML = html;
+            setTimeout(() => {
+                content.querySelector('.content-section').classList.remove('loading');
+            }, 2000);
             const buttons = document.querySelectorAll('.menu-button');
             buttons.forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
@@ -197,7 +354,7 @@
         }
         window.onload = function () {
             const firstButton = document.querySelector('.menu-button');
-            showContent('games', firstButton);
+            showContent('newsletter', firstButton);
         };
     </script>
 </body>
