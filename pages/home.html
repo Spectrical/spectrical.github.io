@@ -7,22 +7,17 @@
     <link rel="icon" href="../components/logo.svg" type="image/svg+xml">
     <style>
         body {
-            background-color: #E0E0E0;
+            background-color: #333;
             margin: 0;
             font-family: Arial, sans-serif;
             color: white;
             user-select: none;
         }
-        .page-wrapper {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
         .top-bar {
             display: flex;
             align-items: center;
             padding: 10px;
-            background-color: #333;
+            background-color: #222;
         }
         .top-bar img {
             height: 40px;
@@ -38,60 +33,48 @@
         }
         .hamburger:hover {
             border: 2px solid white;
-            background: #555;
-        }
-        .main-container {
-            flex: 1;
-            display: flex;
-            position: relative;
+            background: #444;
         }
         .menu {
-            background-color: #333;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #222;
         }
         .menu-button {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 15px;
-            border: none;
-            background: none;
+            background-color: transparent;
             color: white;
+            border: 2px solid transparent;
+            padding: 10px 20px;
             cursor: pointer;
+            flex: 1;
+            text-align: center;
+            margin: 0 5px;
+            position: relative;
             font-family: Arial, sans-serif;
+            box-sizing: border-box;
         }
         .menu-button:hover {
-            background-color: #444;
+            border: 2px solid white;
+            background: #444;
         }
-        .menu-button.selected {
-            background-color: #555;
+        .menu-button.selected::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: white;
         }
         .content {
             background-color: #333;
             padding: 20px;
-            flex: 1; /* Ensures content takes full available width */
-        }
-        @media (min-width: 601px) {
-            .menu {
-                width: 200px;
-            }
-        }
-        @media (max-width: 600px) {
-            .menu {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                display: none;
-                z-index: 10;
-            }
-            .menu.show {
-                display: block;
-            }
+            min-height: calc(100vh - 60px);
         }
         .content-section {
             color: white;
             font-family: Arial, sans-serif;
-            width: 100%;
         }
         .game-grid, .store-grid, .video-grid {
             display: grid;
@@ -112,9 +95,6 @@
             width: 100%;
             height: auto;
         }
-        .logs {
-            padding: 10px;
-        }
         .content-section.loading .placeholder {
             display: block;
         }
@@ -130,15 +110,15 @@
         .image-placeholder {
             width: 100%;
             height: 150px;
-            background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
-            background-size: 200px 100%;
-            animation: shimmer 2s infinite linear;
+            background-image: url('https://spectrical.github.io/gardengrounds.svg');
+            background-size: cover;
+            filter: blur(5px);
         }
         .text-placeholder {
             width: 80%;
             height: 20px;
             margin: 10px 0;
-            background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
+            background: linear-gradient(to right, #555 8%, #444 18%, #555 33%);
             background-size: 200px 100%;
             animation: shimmer 2s infinite linear;
         }
@@ -146,78 +126,73 @@
             0% { background-position: -200px 0; }
             100% { background-position: 200px 0; }
         }
-        ::-webkit-scrollbar {
-            width: 10px;
+        @media (max-width: 600px) {
+            .menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #222;
+            }
+            .menu.show {
+                display: block;
+            }
+            .menu-button {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 15px;
+            }
+            .hamburger {
+                display: block;
+            }
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+        @media (min-width: 601px) {
+            .hamburger {
+                display: none;
+            }
+            .menu {
+                display: flex;
+            }
         }
         footer {
-            background-color: #333;
+            background-color: #222;
             color: white;
             padding: 20px;
             text-align: center;
         }
-        .social-icons img {
-            width: 30px;
-            height: 30px;
-            margin: 0 10px;
-        }
     </style>
 </head>
 <body>
-    <div class="page-wrapper">
-        <div class="top-bar">
-            <div class="hamburger" onclick="toggleMenu()">☰</div>
-            <img src="../components/logo.svg" alt="Logo">
-        </div>
-        <div class="main-container">
-            <div id="main-menu" class="menu">
-                <button class="menu-button" onclick="showContent('newsletter', this)">Newsletter</button>
-                <button class="menu-button" onclick="showContent('games', this)">Games</button>
-                <button class="menu-button" onclick="showContent('store', this)">Store</button>
-                <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
-                <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
-                <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
-            </div>
-            <div id="content" class="content"></div>
-        </div>
-        <footer>
-            <div class="footer-content">
-                <p>&copy; 2023 Your Company. All rights reserved.</p>
-                <div class="social-icons">
-                    <a href="https://twitter.com/yourcompany"><img src="twitter-icon.png" alt="Twitter"></a>
-                    <a href="https://facebook.com/yourcompany"><img src="facebook-icon.png" alt="Facebook"></a>
-                    <!-- Add more social icons as needed -->
-                </div>
-            </div>
-        </footer>
+    <div class="top-bar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <img src="../components/logo.svg" alt="Logo">
     </div>
+    <div id="main-menu" class="menu">
+        <button class="menu-button" onclick="showContent('newsletter', this)">Newsletter</button>
+        <button class="menu-button" onclick="showContent('games', this)">Games</button>
+        <button class="menu-button" onclick="showContent('store', this)">Store</button>
+        <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
+        <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
+        <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
+    </div>
+    <div id="content" class="content"></div>
+    <footer>
+        <p>© 2023 Your Company. All rights reserved.</p>
+    </footer>
     <script>
         function showContent(section, button) {
             const content = document.getElementById('content');
             let html = '';
             switch (section) {
                 case 'newsletter':
-                    html = `<div class="content-section newsletter loading">
+                    html = `<div class="content-section newsletter">
                         <h2>Newsletter</h2>
                         <div class="logs" style="height: 300px; overflow-y: auto;">
-                            <div class="placeholder">
-                                <p class="text-placeholder"></p>
-                                <p class="text-placeholder"></p>
-                                <p class="text-placeholder"></p>
-                            </div>
-                            <div class="actual-content">
-                                <p>Log entry 1: Welcome to our newsletter!</p>
-                                <p>Log entry 2: Updates coming soon.</p>
-                                <p>Log entry 3: Stay tuned for more!</p>
-                            </div>
+                            <p>Log entry 1: Welcome to our newsletter!</p>
+                            <p>Log entry 2: Updates coming soon.</p>
+                            <p>Log entry 3: Stay tuned for more!</p>
                         </div>
                     </div>`;
                     break;
@@ -291,7 +266,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="video1.jpg" alt="Video 1">
+                                    <img src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 1">
                                     <h3>Video 1</h3>
                                 </div>
                             </div>
@@ -301,7 +276,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="video2.jpg" alt="Video 2">
+                                    <img src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 2">
                                     <h3>Video 2</h3>
                                 </div>
                             </div>
@@ -309,38 +284,28 @@
                     </div>`;
                     break;
                 case 'servers':
-                    html = `<div class="content-section servers loading">
+                    html = `<div class="content-section servers">
                         <h2>Servers</h2>
                         <div class="server-list">
                             <div class="server-item">
-                                <div class="placeholder">
-                                    <div class="text-placeholder"></div>
-                                    <div class="text-placeholder"></div>
-                                </div>
-                                <div class="actual-content">
-                                    <h3>Server 1</h3>
-                                    <p>Status: Online</p>
-                                    <p>Players: 10/20</p>
-                                </div>
+                                <h3>Server 1</h3>
+                                <p>Status: Online</p>
+                                <p>Players: 10/20</p>
                             </div>
                             <div class="server-item">
-                                <div class="placeholder">
-                                    <div class="text-placeholder"></div>
-                                    <div class="text-placeholder"></div>
-                                </div>
-                                <div class="actual-content">
-                                    <h3>Server 2</h3>
-                                    <p>Status: Offline</p>
-                                </div>
+                                <h3>Server 2</h3>
+                                <p>Status: Offline</p>
                             </div>
                         </div>
                     </div>`;
                     break;
             }
             content.innerHTML = html;
-            setTimeout(() => {
-                content.querySelector('.content-section').classList.remove('loading');
-            }, 2000);
+            if (['games', 'store', 'watch'].includes(section)) {
+                setTimeout(() => {
+                    content.querySelector('.content-section').classList.remove('loading');
+                }, 2000);
+            }
             const buttons = document.querySelectorAll('.menu-button');
             buttons.forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
