@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Mobile</title>
+    <link rel="icon" href="../components/logo.svg" type="image/svg+xml">
     <style>
         @font-face {
             font-family: 'Minecraft';
@@ -23,6 +24,19 @@
         .top-bar img {
             height: 40px;
         }
+        .hamburger {
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: transparent;
+            border: 2px solid transparent;
+            box-sizing: border-box;
+        }
+        .hamburger:hover {
+            border: 2px solid white;
+            background: #555;
+        }
         .menu {
             display: flex;
             justify-content: space-around;
@@ -34,7 +48,7 @@
         .menu-button {
             background-color: transparent;
             color: white;
-            border: none;
+            border: 2px solid transparent;
             padding: 10px 20px;
             cursor: pointer;
             flex: 1;
@@ -48,14 +62,14 @@
             border: 2px solid white;
             background: #555;
         }
-        .menu-line {
+        .menu-button.selected::after {
+            content: '';
             position: absolute;
             bottom: 0;
+            left: 0;
+            width: 100%;
             height: 3px;
             background-color: white;
-            left: 0;
-            width: 50px;
-            transition: left 0.3s ease, width 0.3s ease;
         }
         .content {
             background-color: #333;
@@ -69,34 +83,93 @@
             background-color: #444;
             padding: 20px;
             color: white;
+            font-family: 'Minecraft', Arial, sans-serif;
+            border: 2px solid #666;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        @media (max-width: 600px) {
+            #main-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #333;
+            }
+            #main-menu.show {
+                display: block;
+            }
+            .menu-button {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 15px;
+            }
+        }
+        @media (min-width: 601px) {
+            #main-menu {
+                display: flex;
+            }
+            .about-button {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="top-bar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
         <img src="../components/logo.svg" alt="Logo">
     </div>
-    <div class="menu">
+    <div id="main-menu" class="menu">
         <button class="menu-button" onclick="showContent('games', this)">Games</button>
         <button class="menu-button" onclick="showContent('store', this)">Store</button>
         <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
         <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
-        <div id="menu-line" class="menu-line"></div>
+        <button class="menu-button" onclick="showContent('newsletter', this)">Newsletter</button>
+        <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
     </div>
-    <div id="content" class="content">
-    </div>
+    <div id="content" class="content"></div>
     <script>
         function showContent(section, button) {
             const content = document.getElementById('content');
-            content.innerHTML = `<div class="content-section">${section} content goes here</div>`;
+            let html = '';
+            switch (section) {
+                case 'games':
+                    html = `<div class="content-section"><h2>Games</h2><p>Work in progress: Interactive game listings coming soon!</p></div>`;
+                    break;
+                case 'store':
+                    html = `<div class="content-section"><h2>Store</h2><p>Work in progress: Shop items and purchasing UI in development.</p></div>`;
+                    break;
+                case 'watch':
+                    html = `<div class="content-section"><h2>Watch</h2><p>Work in progress: Video streaming interface under construction.</p></div>`;
+                    break;
+                case 'servers':
+                    html = `<div class="content-section"><h2>Servers</h2><p>Work in progress: Server status and management tools coming soon.</p></div>`;
+                    break;
+                case 'newsletter':
+                    html = `<div class="content-section newsletter">
+                        <h2>Newsletter</h2>
+                        <div class="logs" style="height: 300px; overflow-y: auto; font-family: 'Minecraft', Arial, sans-serif;">
+                            <p>Log entry 1: Welcome to our newsletter!</p>
+                            <p>Log entry 2: Updates coming soon.</p>
+                            <p>Log entry 3: Stay tuned for more!</p>
+                        </div>
+                    </div>`;
+                    break;
+            }
+            content.innerHTML = html;
             const buttons = document.querySelectorAll('.menu-button');
             buttons.forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
-            const line = document.getElementById('menu-line');
-            const buttonRect = button.getBoundingClientRect();
-            const menuRect = button.parentElement.getBoundingClientRect();
-            line.style.left = `${buttonRect.left - menuRect.left + (buttonRect.width / 2 - 25)}px`;
-            line.style.width = `50px`;
+            if (window.innerWidth <= 600) {
+                document.getElementById('main-menu').classList.remove('show');
+            }
+        }
+        function toggleMenu() {
+            const menu = document.getElementById('main-menu');
+            menu.classList.toggle('show');
         }
         window.onload = function () {
             const firstButton = document.querySelector('.menu-button');
