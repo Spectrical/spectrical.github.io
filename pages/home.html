@@ -18,6 +18,7 @@
             align-items: center;
             padding: 10px;
             background-color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
         .top-bar img {
             height: 40px;
@@ -40,9 +41,12 @@
         .menu {
             display: flex;
             flex-grow: 1;
-            justify-content: flex-start;
+            justify-content: space-around;
+            position: relative;
         }
         .menu-button {
+            flex: 1;
+            text-align: center;
             background-color: transparent;
             color: white;
             border: 2px solid transparent;
@@ -57,14 +61,14 @@
             border: 2px solid white;
             background: #444;
         }
-        .menu-button.selected::after {
-            content: '';
+        .selection-line {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
+            width: 0;
             height: 3px;
             background-color: white;
+            transition: left 0.3s ease, width 0.3s ease;
         }
         .content {
             background-color: #222;
@@ -75,7 +79,7 @@
             color: white;
             font-family: Arial, sans-serif;
         }
-        .game-grid, .store-grid, .video-grid {
+        .game-grid, .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
@@ -85,13 +89,13 @@
             flex-direction: column;
             gap: 20px;
         }
-        .game-card, .store-item, .video-item, .server-item {
+        .game-card, .video-item, .server-item {
             background-color: #444;
             padding: 10px;
             border-radius: 5px;
             min-height: 150px;
         }
-        .game-card img, .store-item img, .video-item img {
+        .game-card img, .video-item img {
             width: 100%;
             height: 100px;
             object-fit: cover;
@@ -126,6 +130,22 @@
             0% { background-position: -200px 0; }
             100% { background-position: 200px 0; }
         }
+        .content a {
+            color: white;
+            text-decoration: none;
+        }
+        .content a:hover {
+            color: #ccc;
+        }
+        .store h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .store p {
+            font-size: 16px;
+            line-height: 1.4;
+        }
         @media (max-width: 600px) {
             .hamburger {
                 display: block;
@@ -137,6 +157,7 @@
                 left: 0;
                 width: 100%;
                 background-color: #333;
+                z-index: 1000;
             }
             .menu.show {
                 display: block;
@@ -146,6 +167,9 @@
                 width: 100%;
                 text-align: left;
                 padding: 15px;
+            }
+            .content {
+                margin-top: 60px;
             }
         }
         @media (min-width: 601px) {
@@ -172,6 +196,7 @@
             <button class="menu-button" onclick="showContent('watch', this)">Watch</button>
             <button class="menu-button" onclick="showContent('servers', this)">Servers</button>
             <button class="menu-button about-button" onclick="window.location.href='https://spectrical.github.io/about/us.html'">About</button>
+            <div class="selection-line"></div>
         </div>
     </div>
     <div id="content" class="content"></div>
@@ -187,8 +212,8 @@
                     html = `<div class="content-section newsletter">
                         <h2>Newsletter</h2>
                         <div class="logs" style="height: 300px; overflow-y: auto;">
-    <p>On September 1, 1999, Radal gives a speech on infinite dimensions at a research facility. In the middle of his presentation, a mysterious figure interrupts him, causing him to lose consciousness. When he wakes up, the facility is almost completely destroyed. Determined to find answers, he decided to find what happened and who was behind it, believing he already knows the answer.</p>
-                           </div>
+                            <p>On September 1, 1999, Radal gives a speech on infinite dimensions at a research facility. In the middle of his presentation, a mysterious figure interrupts him, causing him to lose consciousness. When he wakes up, the facility is almost completely destroyed. Determined to find answers, he decided to find what happened and who was behind it, believing he already knows the answer.</p>
+                        </div>
                     </div>`;
                     break;
                 case 'games':
@@ -202,7 +227,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="game1.jpg" alt="Game 1" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                                    <img src="game1.jpg" alt="Game 1" onerror="retryLoad(this, 'game1.jpg')">
                                     <h3>Game 1</h3>
                                     <p>Description of Game 1</p>
                                 </div>
@@ -214,7 +239,7 @@
                                     <div class="text-placeholder"></div>
                                 </div>
                                 <div class="actual-content">
-                                    <img src="game2.jpg" alt="Game 2" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                                    <img src="game2.jpg" alt="Game 2" onerror="retryLoad(this, 'game2.jpg')">
                                     <h3>Game 2</h3>
                                     <p>Description of Game 2</p>
                                 </div>
@@ -223,32 +248,9 @@
                     </div>`;
                     break;
                 case 'store':
-                    html = `<div class="content-section store loading">
+                    html = `<div class="content-section store">
                         <h2>Store</h2>
-                        <div class="store-grid">
-                            <div class="store-item">
-                                <div class="placeholder">
-                                    <div class="image-placeholder"></div>
-                                    <div class="text-placeholder"></div>
-                                </div>
-                                <div class="actual-content">
-                                    <img src="product1.jpg" alt="Product 1" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
-                                    <h3>Product 1</h3>
-                                    <p>$10.00</p>
-                                </div>
-                            </div>
-                            <div class="store-item">
-                                <div class="placeholder">
-                                    <div class="image-placeholder"></div>
-                                    <div class="text-placeholder"></div>
-                                </div>
-                                <div class="actual-content">
-                                    <img src="product2.jpg" alt="Product 2" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
-                                    <h3>Product 2</h3>
-                                    <p>$15.00</p>
-                                </div>
-                            </div>
-                        </div>
+                        <p>Explore our catalog soon! Stay tuned for exclusive items and updates.</p>
                     </div>`;
                     break;
                 case 'watch':
@@ -262,7 +264,7 @@
                                         <div class="text-placeholder"></div>
                                     </div>
                                     <div class="actual-content">
-                                        <img src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 1" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                                        <img src="https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg" alt="Video 1" onerror="retryLoad(this, 'https://img.youtube.com/vi/nTF7ZIqu-Hw/0.jpg')">
                                         <h3>Video 1 Title</h3>
                                     </div>
                                 </a>
@@ -274,7 +276,7 @@
                                         <div class="text-placeholder"></div>
                                     </div>
                                     <div class="actual-content">
-                                        <img src="https://img.youtube.com/vi/gzNsqy-fYjM/0.jpg" alt="Video 2" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder').style.display='block';">
+                                        <img src="https://img.youtube.com/vi/gzNsqy-fYjM/0.jpg" alt="Video 2" onerror="retryLoad(this, 'https://img.youtube.com/vi/gzNsqy-fYjM/0.jpg')">
                                         <h3>Video 2 Title</h3>
                                     </div>
                                 </a>
@@ -300,14 +302,18 @@
                     break;
             }
             content.innerHTML = html;
-            if (['games', 'store', 'watch'].includes(section)) {
+            if (['games', 'watch'].includes(section)) {
                 setTimeout(() => {
                     content.querySelector('.content-section').classList.remove('loading');
                 }, 2000);
             }
-            const buttons = document.querySelectorAll('.menu-button');
-            buttons.forEach(btn => btn.classList.remove('selected'));
-            button.classList.add('selected');
+            const menu = document.querySelector('.menu');
+            const line = menu.querySelector('.selection-line');
+            const selectedButton = button;
+            const buttonRect = selectedButton.getBoundingClientRect();
+            const menuRect = menu.getBoundingClientRect();
+            line.style.left = (buttonRect.left - menuRect.left) + 'px';
+            line.style.width = buttonRect.width + 'px';
             if (window.innerWidth <= 600) {
                 document.getElementById('main-menu').classList.remove('show');
             }
@@ -315,6 +321,11 @@
         function toggleMenu() {
             const menu = document.getElementById('main-menu');
             menu.classList.toggle('show');
+        }
+        function retryLoad(img, src) {
+            setTimeout(() => {
+                img.src = src;
+            }, 5000);
         }
         window.onload = function () {
             const firstButton = document.querySelector('.menu-button');
