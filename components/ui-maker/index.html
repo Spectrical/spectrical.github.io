@@ -1,39 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Sidebar Layout</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="components/hamburger-menu.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empty Page</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/layout/buttons.css">
+  <link rel="stylesheet" href="assets/layout/projectSetup/setupForm.css">
 </head>
 <body>
-    <div class="top-menu">
-        <div class="hamburger-menu"></div>
+
+  <div class="boxTop">
+    <div class="boxTopMenu" id="createButton" buttonType="1">
+      <span class="menuText">New Project</span>
     </div>
-    <div class="container"></div>
-    <div class="overlay-menu">
-        <div class="overlay-menu active">
-            <div class="overlay-main-screen">
-                <div class="overlay-top-bar">
-                    <div class="overlay-exit-button"></div>
-                </div>
-                <button class="overlay-button">Button 1</button>
-                <button class="overlay-button">Button 2</button>
-                <button class="overlay-button">Button 3</button>
-            </div>
+  </div>
+
+  <div id="projectSetupOverlay" class="overlay">
+    <div class="project-setup-box">
+        <span class="exit-button"></span>
+      <h2 class="setupTopText">Project Setup</h2>
+    </div>
+    <div class="sub"></div>
+    <span id="setupForm">
+        <span id="formIcon"></span>
+        <div class="formCreate" id="createButton" buttonType="1">
+            <span class="menuText">Create</span>
         </div>
-        
-        <script>
-            document.querySelectorAll('.overlay-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    button.classList.toggle('pressed');
-                });
-            });
-        </script>
-    <script src="sidebar.js"></script>
-    <script src="mainScreen.js"></script>
-    <script src="script.js"></script>
-    <script src="components/hamburger-menu.js"></script>
+        <div class="formTemplates" id="createButton" buttonType="1">
+            <span class="menuText">Use Templates</span>
+        </div>
+        <div class="projectForm">
+            <form class="fName">
+                <label for="projectName">Project Name<br></label>
+                <input type="projName" id="projectName">
+            </form>
+            <form class="fAuthor">
+                <label for="projectAuthor">Author<br></label>
+                <input type="projAuthor" id="projectAuthor">
+            </form>
+            <form class="fLicense">
+                <label for="projectLicense">License<br></label>
+                <input type="projLicense" id="projectLicense">
+            </form>
+            <div class="fMinEngine">Bedrock 1.19.0+</div>
+            <div class="fUi">Bamboo-UI</div>
+            <span class="fImportDrag"></span>
+            <span class="fImportChoose"></span>
+        </div>
+    </span>
+  </div>
+
+  <div id="noProjectText" class="centered-text"></div>
+
+  <script src="assets/layout/buttons.js"></script>
+  <script src="assets/layout/projectSetup/ui.js"></script>
 </body>
 </html>
