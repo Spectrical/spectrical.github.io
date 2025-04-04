@@ -1,0 +1,282 @@
+* {
+    --darkButton: sepia(1) hue-rotate(200deg) saturate(100%) brightness(10%);
+    --enchantButton: sepia(1) hue-rotate(-140deg) saturate(800%) brightness(100%);
+    --orangeButton: sepia(1) hue-rotate(-40deg) saturate(800%) brightness(130%);
+}
+.boxTopMenu {
+    --button-width: 120px;
+    --button-height: 38px;
+    --button-height-pressed: 34px;
+    --button-height-hover-pressed: 39px;
+    --background-width: 130px;
+    --background-height: 20px;
+    --background-height-hover-pressed: 25px;
+    --border-image-width: 12px;
+    --font-size: 15px;
+    --top-shared: -7px;
+    --top-default: var(--top-shared);
+    --top-pressed: -2px;
+    --top-hover-pressed: var(--top-shared);
+    --left-default: 0px;
+    --menu-text-top-default: 4px;
+    --menu-text-top-pressed-hover: 10px;
+    --z-index: 4;
+
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_button_wait.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-default);
+    left: var(--left-default);
+    height: var(--button-height);
+    width: var(--button-width);
+    z-index: var(--z-index);
+    font-size: var(--font-size);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.formCreate {
+    --button-width: 180px;
+    --button-height: 38px;
+    --button-height-pressed: 34px;
+    --button-height-hover-pressed: 39px;
+    --background-width: 240px;
+    --background-height: 20px;
+    --background-height-hover-pressed: 25px;
+    --border-image-width: 12px;
+    --font-size: 15px;
+    --top-shared: 250px;
+    --top-default: var(--top-shared);
+    --top-pressed: -2px;
+    --top-hover-pressed: var(--top-shared);
+    --left-default: 42px;
+    --menu-text-top-default: 4px;
+    --menu-text-top-pressed-hover: 10px;
+    --z-index: 4;
+    filter: var(--orangeButton);
+
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_button_wait.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-default);
+    left: var(--left-default);
+    height: var(--button-height);
+    width: var(--button-width);
+    z-index: var(--z-index);
+    font-size: var(--font-size);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.formTemplates {
+    --button-width: 180px;
+    --button-height: 38px;
+    --button-height-pressed: 34px;
+    --button-height-hover-pressed: 39px;
+    --background-width: 240px;
+    --background-height: 20px;
+    --background-height-hover-pressed: 25px;
+    --border-image-width: 12px;
+    --font-size: 15px;
+    --top-shared: 300px;
+    --top-default: var(--top-shared);
+    --top-pressed: -2px;
+    --top-hover-pressed: var(--top-shared);
+    --left-default: 42px;
+    --menu-text-top-default: 4px;
+    --menu-text-top-pressed-hover: 10px;
+    --z-index: 4;
+    filter: var(--enchantButton);
+
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_button_wait.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-default);
+    left: var(--left-default);
+    height: var(--button-height);
+    width: var(--button-width);
+    z-index: var(--z-index);
+    font-size: var(--font-size);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.boxTopMenu:not(.pressed):hover {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_button_hover.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background_hover.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-default);
+    left: var(--left-default);
+    height: var(--button-height);
+    width: var(--button-width);
+    cursor: pointer;
+    z-index: var(--z-index);
+}
+
+.boxTopMenu.pressed {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_pressed_button_wait.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-pressed);
+    left: var(--left-default);
+    height: var(--button-height-pressed);
+    width: var(--button-width);
+    z-index: var(--z-index);
+}
+
+.boxTopMenu.pressed:hover {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_pressed_button_hover.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background_hover.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height-hover-pressed);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-hover-pressed);
+    left: var(--left-default);
+    height: var(--button-height-hover-pressed);
+    width: var(--button-width);
+    z-index: var(--z-index);
+}
+
+.boxTopMenu:not(:hover) .menuText {
+    top: var(--menu-text-top-default);
+    position: relative;
+}
+
+.boxTopMenu:not(.pressed):hover .menuText {
+    position: relative;
+    color: rgb(42, 64, 41);
+    top: var(--menu-text-top-default);
+}
+
+.boxTopMenu.pressed:hover .menuText {
+    position: relative;
+    color: rgb(255, 255, 255);
+    top: var(--menu-text-top-pressed-hover);
+}
+
+.formCreate:not(.pressed):hover {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_button_hover.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background_hover.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-default);
+    left: var(--left-default);
+    height: var(--button-height);
+    width: var(--button-width);
+    cursor: pointer;
+    z-index: var(--z-index);
+}
+
+.formCreate.pressed {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_pressed_button_wait.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-pressed);
+    left: var(--left-default);
+    height: var(--button-height-pressed);
+    width: var(--button-width);
+    z-index: var(--z-index);
+}
+
+.formCreate.pressed:hover {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_pressed_button_hover.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background_hover.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height-hover-pressed);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-hover-pressed);
+    left: var(--left-default);
+    height: var(--button-height-hover-pressed);
+    width: var(--button-width);
+    z-index: var(--z-index);
+}
+
+.formCreate:not(:hover) .menuText {
+    top: var(--menu-text-top-default);
+    position: relative;
+}
+
+.formCreate:not(.pressed):hover .menuText {
+    position: relative;
+    color: rgb(253, 253, 253);
+    top: var(--menu-text-top-default);
+    filter: sepia(1) brightness(100%);
+}
+
+.formCreate.pressed:hover .menuText {
+    position: relative;
+    color: rgb(255, 255, 255);
+    top: var(--menu-text-top-pressed-hover);
+}
+
+.formTemplates:not(.pressed):hover {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_button_hover.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background_hover.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-default);
+    left: var(--left-default);
+    height: var(--button-height);
+    width: var(--button-width);
+    cursor: pointer;
+    z-index: var(--z-index);
+}
+
+.formTemplates.pressed {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_pressed_button_wait.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-pressed);
+    left: var(--left-default);
+    height: var(--button-height-pressed);
+    width: var(--button-width);
+    z-index: var(--z-index);
+}
+
+.formTemplates.pressed:hover {
+    border-image: url('../media/bamboo-ui-vanilla/sixslice_pressed_button_hover.png') 6 6 6 6 stretch;
+    background: url('../media/bamboo-ui-vanilla/background/sixslice_button_background_hover.png') no-repeat center, transparent;
+    background-size: var(--background-width) var(--background-height-hover-pressed);
+    border-image-width: var(--border-image-width);
+    position: absolute;
+    top: var(--top-hover-pressed);
+    left: var(--left-default);
+    height: var(--button-height-hover-pressed);
+    width: var(--button-width);
+    z-index: var(--z-index);
+}
+
+.formTemplates:not(:hover) .menuText {
+    top: var(--menu-text-top-default);
+    position: relative;
+}
+
+.formTemplates:not(.pressed):hover .menuText {
+    position: relative;
+    color: rgb(253, 253, 253);
+    top: var(--menu-text-top-default);
+    filter: sepia(1) brightness(100%);
+}
+
+.formTemplates.pressed:hover .menuText {
+    position: relative;
+    color: rgb(255, 255, 255);
+    top: var(--menu-text-top-pressed-hover);
+}
+

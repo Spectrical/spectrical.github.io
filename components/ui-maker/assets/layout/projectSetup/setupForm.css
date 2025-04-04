@@ -1,0 +1,107 @@
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Minecraft', sans-serif;
+    font-size: 18px;
+    color: white;
+    z-index: 5;
+    pointer-events: none;
+}
+
+#projectSetupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.project-setup-box {
+    /* Fixed border-image size */
+    border-image: url('../../media/bamboo-ui-vanilla/sixslice_button_wait.png') 6 6 6 6 stretch;
+    border-image-width: 16px; /* Explicitly set border width in px */
+    /* Fixed background image size */
+    background: url('../../media/bamboo-ui-vanilla/background/sixslice_button_background.png') no-repeat center, transparent;
+    background-size: 1260px 38px; /* Already fixed at 1260x38px, keeping this */
+    color: rgb(51, 51, 51);
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: 154px;
+    left: 370px;
+    right: 290px;
+    height: 40px; /* Fixed height */
+    width: 752px; /* Calculated as 100% - (290px left + 290px right) = 740px assuming a 1320px viewport; adjust if needed */
+    z-index: 4;
+}
+
+.project-setup-box .setupTopText {
+    position: relative;
+    color: rgb(55, 55, 55);
+    bottom: 23px;
+    letter-spacing: 1px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#setupForm {
+    border: 16px solid transparent; /* Temporary: make border visible */
+    background-image: url('../../media/bamboo-ui-vanilla/background/background_dim.png');
+    background-size: 720px 360px;
+    border-image: url('../../media/bamboo-ui-vanilla/nineslice_box_dim.png') 3 3 3 3 stretch;
+    border-image-width: 16px;
+    position: absolute;
+    text-align: center;
+    top: 212px;
+    left: 380px;
+    right: 300px;
+    height: 360px;
+    width: 720px;
+    z-index: 10;
+}
+#formIcon {
+    /* Fixed background image size */
+    background-image: url('../../media/bamboo-ui-vanilla/icon_plains.png');
+    background-size: 200px 200px; /* Set to exact pixel size instead of 'contain' */
+    color: rgb(51, 51, 51);
+    position: absolute;
+    top: 25px;
+    left: 32px;
+    right: 320px;
+    border: none;
+    width: 200px; /* Fixed width */
+    height: 200px; /* Fixed height */
+    background-repeat: no-repeat;
+    z-index: 10;
+}
+
+.exit-button {
+    /* Fixed background image size */
+    background-image: url('../../media/bamboo-ui/buttons/exit.png');
+    background-size: 20px 20px; /* Set to exact pixel size instead of 'contain' */
+    position: absolute;
+    top: 17px;
+    right: 14px;
+    width: 20px; /* Fixed width */
+    height: 20px; /* Fixed height */
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+    z-index: 1000;
+}
+
+.exit-button:hover {
+    filter: brightness(0.5) sepia(1) hue-rotate(-50deg) saturate(5);
+}
+

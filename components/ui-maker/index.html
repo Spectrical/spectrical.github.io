@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empty Page</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/layout/buttons.css">
+  <link rel="stylesheet" href="assets/layout/projectSetup/setupForm.css">
+</head>
+<body>
 
+  <div class="boxTop">
+    <div class="boxTopMenu" id="createButton" buttonType="1">
+      <span class="menuText">New Project</span>
+    </div>
+  </div>
+
+  <div id="projectSetupOverlay" class="overlay">
+    <div class="project-setup-box">
+        <span class="exit-button"></span>
+      <h2 class="setupTopText">Project Setup</h2>
+    </div>
+    <span id="setupForm">
+        <span id="formIcon"></span>
+        <div class="formCreate" id="createButton" buttonType="1">
+            <span class="menuText">Create</span>
+        </div>
+        <div class="formTemplates" id="createButton" buttonType="1">
+            <span class="menuText">Use Templates</span>
+        </div>
+    </span>
+  </div>
+
+  <div id="noProjectText" class="centered-text"></div>
+
+  <script src="assets/layout/buttons.js"></script>
+  <script src="assets/layout/projectSetup/ui.js"></script>
+</body>
+</html>

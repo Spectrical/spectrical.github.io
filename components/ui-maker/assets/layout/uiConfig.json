@@ -1,0 +1,10 @@
+{
+    "showNoProjectText": true,
+    "noProjectMessage": "NO PROJECT/S SELECTED",
+    "projectSetup": {
+      "enabled": true,
+      "dimBackground": true,
+      "exitButton": true
+    }
+  }
+  

@@ -1,0 +1,47 @@
+@font-face {
+    font-family: Minecraft;
+    src: url(assets/fonts/minecraft_text.ttf);
+}
+
+@font-face {
+    font-family: MinecraftText;
+    src: url(assets/fonts/minecraft.ttf);
+}
+
+body {
+    background-color: rgb(27, 27, 27);
+    font-family: Minecraft;
+    image-rendering: pixelated;
+}
+
+:bamboo-ui {
+    --pp : 1%;
+}
+
+.boxTop {
+    color:rgb(51, 51, 51);
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    border: 16px solid transparent;
+    border-image: url('assets/media/bamboo-ui/nineslice_tablet.png') 3 3 3 3 stretch;
+    background-image: url('assets/media/bamboo-ui/background_tablet.png');
+    z-index: 10;
+}
+
+.boxTop::before {
+    content: '';
+    color: rgba(0, 0, 0, 0);
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-image: url('assets/media/bamboo-ui/background_tablet.png');
+    z-index: -1;
+}
+  
