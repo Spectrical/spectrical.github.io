@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Bedrock Server Form JSON Documentation</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            background-color: #1a1a1a;
+        }
+
+        /* Navigation Sidebar */
+        nav {
+            width: 300px;
+            position: fixed;
+            background-color: #252525;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #444;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+        }
+        nav h2 {
+            margin-top: 0;
+            color: #ff9900;
+            font-size: 1.5em;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin-bottom: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #66b3ff;
+            font-weight: 500;
+        }
+        nav ul li a:hover {
+            color: #ff5555;
+            text-decoration: underline;
+        }
+        nav ul ul {
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 320px;
+            padding: 40px;
+            max-width: 1000px;
+        }
+        h1 {
+            color: #ff9900;
+            border-bottom: 2px solid #66b3ff;
+            padding-bottom: 10px;
+        }
+        h2, h3, h4 {
+            color: #ff9900;
+        }
+        p {
+            margin: 10px 0;
+        }
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        /* Code Blocks */
+        pre {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #66b3ff;
+            color: #e0e0e0;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            nav {
+                width: 100%;
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #444;
+            }
+            main {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#namespace">Namespace</a></li>
+            <li><a href="#screen-structure">Screen Structure</a>
+                <ul>
+                    <li><a href="#third-party-server-screen">Third Party Server Screen</a></li>
+                    <li><a href="#main-screen-content">Main Screen Content</a></li>
+                </ul>
+            </li>
+            <li><a href="#long-form">Long Form</a>
+                <ul>
+                    <li><a href="#long-form-definition">Long Form Definition</a></li>
+                    <li><a href="#long-form-panel">Long Form Panel</a></li>
+                    <li><a href="#scrolling-panel">Scrolling Panel</a></li>
+                    <li><a href="#long-form-scrolling-content">Scrolling Content</a></li>
+                    <li><a href="#dynamic-buttons-panel">Dynamic Buttons Panel</a></li>
+                    <li><a href="#dynamic-controls">Dynamic Controls</a></li>
+                </ul>
+            </li>
+            <li><a href="#custom-form">Custom Form</a>
+                <ul>
+                    <li><a href="#custom-form-definition">Custom Form Definition</a></li>
+                    <li><a href="#custom-form-panel">Custom Form Panel</a></li>
+                    <li><a href="#custom-form-scrolling-content">Scrolling Content</a></li>
+                    <li><a href="#generated-contents">Generated Contents</a></li>
+                    <li><a href="#custom-controls">Custom Controls</a></li>
+                </ul>
+            </li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="introduction">
+            <h1>Introduction</h1>
+            <p>This documentation provides a comprehensive analysis of the `server_form.json` file used in Minecraft Bedrock Edition's UI system. Located within a resource pack's UI folder, this file defines a server-related interface with two primary forms: a scrollable list ("long_form") and an interactive input form ("custom_form"). The goal is to explain each element, property, and structure in detail, enabling developers to understand and customize this JSON-based UI effectively.</p>
+        </section>
+
+        <section id="namespace">
+            <h1>Namespace</h1>
+            <p>The `server_form.json` file begins with a namespace declaration:</p>
+            <pre><code>"namespace": "server_form"</code></pre>
+            <p>In Minecraft Bedrock's UI system, the namespace acts as a unique identifier for all elements within the file. It prefixes every control, panel, and definition, ensuring they can be referenced globally without conflicts. For example, a panel named `long_form` becomes `server_form.long_form` when accessed outside this file. This scoping is essential in a system where multiple UI files coexist, such as `hud_screen.json` or `inventory_screen.json`, preventing naming collisions and facilitating modularity.</p>
+        </section>
+
+        <section id="screen-structure">
+            <h1>Screen Structure</h1>
+            <p>The top-level structure of `server_form.json` defines the screen and its content, serving as the entry point for the UI.</p>
+
+            <h2 id="third-party-server-screen">Third Party Server Screen</h2>
+            <p>The screen is defined as:</p>
+            <pre><code>"third_party_server_screen@common.base_screen": {
+    "$screen_content": "server_form.main_screen_content",
+    "button_mappings": [
+        {
+            "from_button_id": "button.menu_cancel",
+            "to_button_id": "button.menu_exit",
+            "mapping_type": "global"
+        }
+    ]
+}</code></pre>
+            <p>This element uses inheritance (`@common.base_screen`) to extend a predefined template, typically found in `ui/_global_variables.json`. The base screen provides default properties like background rendering or layer management, which `third_party_server_screen` customizes with:</p>
+            <ul>
+                <li><strong>`$screen_content`</strong>: A variable (denoted by `$`) set to `"server_form.main_screen_content"`, specifying the primary content panel. Variables allow dynamic substitution, making the screen adaptable to different contexts.</li>
+                <li><strong>`button_mappings`</strong>: An array mapping input actions. Here, pressing "menu_cancel" (e.g., B button on a controller) triggers "menu_exit", closing the screen. The `"global"` mapping type ensures this applies universally.</li>
+            </ul>
+
+            <h2 id="main-screen-content">Main Screen Content</h2>
+            <p>The content is defined as:</p>
+            <pre><code>"main_screen_content": {
+    "type": "panel",
+    "size": [0, 0],
+    "controls": [
+        {
+            "server_form_factory": {
+                "type": "factory",
+                "control_ids": {
+                    "long_form": "@server_form.long_form",
+                    "custom_form": "@server_form.custom_form"
+                }
+            }
+        }
+    ]
+}</code></pre>
+            <p>This panel acts as a container with:</p>
+            <ul>
+                <li><strong>`type`</strong>: `"panel"` – A basic container for child controls.</li>
+                <li><strong>`size`</strong>: `[0, 0]` – Indicates dynamic sizing based on its children or parent constraints.</li>
+                <li><strong>`controls`</strong>: A factory that selects between `"long_form"` or `"custom_form"` based on game logic or bindings, enabling the UI to adapt to different server-related tasks.</li>
+            </ul>
+        </section>
+
+        <section id="long-form">
+            <h1>Long Form</h1>
+            <p>The "long_form" is a scrollable list interface, ideal for displaying server options or similar data.</p>
+
+            <h2 id="long-form-definition">Long Form Definition</h2>
+            <pre><code>"long_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "common_dialogs.standard_title_label",
+    "$title_size": ["100% - 14px", 10],
+    "size": [225, 200],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.long_form_panel",
+    "layer": 2
+}</code></pre>
+            <p>This extends a dialog template without buttons, featuring:</p>
+            <ul>
+                <li><strong>`size`</strong>: `[225, 200]` – Fixed dimensions in pixels.</li>
+                <li><strong>`$title_panel`</strong>: References a standard title label.</li>
+                <li><strong>`$title_size`</strong>: Adjusts title area to nearly full width minus 14px, with a 10px height.</li>
+                <li><strong>`$text_name`</strong>: Binds title text to `#title_text`.</li>
+                <li><strong>`$child_control`</strong>: Links to `"long_form_panel"` for content.</li>
+                <li><strong>`layer`</strong>: `2` – Sets rendering order.</li>
+            </ul>
+
+            <h2 id="long-form-panel">Long Form Panel</h2>
+            <pre><code>"long_form_panel": {
+    "type": "stack_panel",
+    "size": ["100%", "100%"],
+    "orientation": "vertical",
+    "layer": 1,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+        {"scrolling_panel@common.scrolling_panel": {}}
+    ]
+}</code></pre>
+            <p>A vertical stack panel that:</p>
+            <ul>
+                <li><strong>`size`</strong>: Fills the parent entirely.</li>
+                <li><strong>`orientation`</strong>: Stacks children top-to-bottom.</li>
+                <li><strong>`anchor_from/to`</strong>: Aligns with the top-left corner.</li>
+                <li><strong>`controls`</strong>: Hosts a scrolling panel.</li>
+            </ul>
+
+            <h2 id="scrolling-panel">Scrolling Panel</h2>
+            <pre><code>"scrolling_panel@common.scrolling_panel": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$show_background": false,
+    "size": ["100%", "100%"],
+    "$scrolling_content": "server_form.long_form_scrolling_content",
+    "$scroll_size": [5, "100% - 4px"],
+    "$scrolling_pane_size": ["100% - 4px", "100% - 2px"],
+    "$scrolling_pane_offset": [2, 0]
+}</code></pre>
+            <p>Inherits scrolling functionality with:</p>
+            <ul>
+                <li><strong>`$show_background`</strong>: No background for transparency.</li>
+                <li><strong>`$scrolling_content`</strong>: Points to scrollable content.</li>
+                <li><strong>`$scroll_size`</strong>: Defines scrollbar dimensions.</li>
+                <li><strong>`$scrolling_pane_offset`</strong>: Shifts content 2px right.</li>
+            </ul>
+
+            <h2 id="long-form-scrolling-content">Scrolling Content</h2>
+            <pre><code>"long_form_scrolling_content": {
+    "type": "stack_panel",
+    "size": ["100% - 4px", "100%c"],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+        {"label_offset_panel": {}},
+        {"padding": {"type": "panel", "size": ["100%", 4]}},
+        {"wrapping_panel": {"controls": [{"long_form_dynamic_buttons_panel": {}}]}}
+    ]
+}</code></pre>
+            <p>Contains:</p>
+            <ul>
+                <li><strong>`size`</strong>: Width adjusted for padding; height content-driven (`%c`).</li>
+                <li><strong>`controls`</strong>: Label, padding, and dynamic buttons.</li>
+            </ul>
+
+            <h2 id="dynamic-buttons-panel">Dynamic Buttons Panel</h2>
+            <pre><code>"long_form_dynamic_buttons_panel": {
+    "type": "stack_panel",
+    "size": ["100% - 4px", "100%c"],
+    "offset": [2, 0],
+    "orientation": "vertical",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "factory": {
+        "name": "buttons",
+        "control_ids": {
+            "button": "server_form.dynamic_button",
+            "label": "@server_form.dynamic_label",
+            "header": "@server_form.dynamic_header",
+            "divider": "@settings_common.option_group_section_divider"
+        }
+    },
+    "bindings": [
+        {"binding_name": "#form_button_contents", "binding_name_override": "#collection_length"}
+    ]
+}</code></pre>
+            <p>Uses a factory to generate controls from `#form_button_contents`.</p>
+
+            <h2 id="dynamic-controls">Dynamic Controls</h2>
+            <h3>Dynamic Button</h3>
+            <pre><code>"dynamic_button": {
+    "type": "stack_panel",
+    "size": ["100%", 32],
+    "orientation": "horizontal",
+    "controls": [
+        {"panel_name": {"controls": [{"image": {"bindings": [{"binding_name": "#form_button_texture"}]}}]}},
+        {"form_button@common_buttons.light_text_button": {"$button_text": "#form_button_text"}}
+    ]
+}</code></pre>
+            <p>A button with an image and text, bound dynamically.</p>
+        </section>
+
+        <section id="custom-form">
+            <h1>Custom Form</h1>
+            <p>The "custom_form" provides interactive inputs.</p>
+
+            <h2 id="custom-form-definition">Custom Form Definition</h2>
+            <pre><code>"custom_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "common_dialogs.standard_title_label",
+    "$title_size": ["100% - 14px", 10],
+    "size": [225, 200],
+    "$text_name": "#title_text",
+    "$child_control": "server_form.custom_form_panel",
+    "layer": 2
+}</code></pre>
+
+            <h2 id="custom-form-panel">Custom Form Panel</h2>
+            <pre><code>"custom_form_panel@common.scrolling_panel": {
+    "size": ["100%", "100%"],
+    "$scrolling_content": "server_form.custom_form_scrolling_content"
+}</code></pre>
+
+            <h2 id="custom-form-scrolling-content">Scrolling Content</h2>
+            <pre><code>"custom_form_scrolling_content": {
+    "type": "stack_panel",
+    "size": ["100% - 4px", "100%c"],
+    "controls": [
+        {"generated_form@server_form.generated_contents": {}},
+        {"submit_button@common_buttons.light_text_button": {"$button_text": "#submit_text"}}
+    ]
+}</code></pre>
+
+            <h2 id="generated-contents">Generated Contents</h2>
+            <pre><code>"generated_contents": {
+    "type": "stack_panel",
+    "factory": {
+        "name": "buttons",
+        "control_ids": {
+            "label": "@server_form.custom_label",
+            "toggle": "@server_form.custom_toggle",
+            "slider": "@server_form.custom_slider"
+        }
+    }
+}</code></pre>
+
+            <h2 id="custom-controls">Custom Controls</h2>
+            <p>Includes toggles, sliders, etc., each bound to specific data.</p>
+        </section>
+
+        <section id="conclusion">
+            <h1>Conclusion</h1>
+            <p>This documentation details the `server_form.json` file, offering a thorough understanding of its structure and functionality for Minecraft Bedrock UI customization.</p>
+        </section>
+    </main>
+</body>
+</html>
